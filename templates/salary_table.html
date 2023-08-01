@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator wynagrodzeń 2023</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <div class="main-container">
+    <div class="container">
+    <h1>Kalkulator wynagrodzeń 2023</h1>
+    <form action="{{ url_for('salaries') }}" method="post">
+      <div class="salary">
+        <input type="text" name="salaryInput" placeholder="Podaj kwotę brutto"
+               value="{% if request.form.get('salaryInput') %}{{ request.form.get('salaryInput') }}{% endif %}">
+        <button type="submit">Oblicz</button>
+      </div>
+      <div class="checkboxes">
+        <label>
+          <input type="checkbox" name="workAtResidence" {% if work_at_residence %} checked {% endif %}>
+            Praca w miejscu zamieszkania
+        </label>
+      </div>
+    </form>
+  </div>
+
+    <div class="table-container">
+      <table>
+        <tbody>
+          <tr>
+            <td rowspan="2" colspan="4"></td>
+            <td rowspan="2" colspan="4" class="column-border">Brutto</td>
+            <td colspan="4">Ubezpieczenie</td>
+            <td rowspan="2" colspan="4">Podstawa<br>opodatkowania</td>
+            <td rowspan="2" colspan="4">Zaliczka na PIT</td>
+            <td rowspan="2" colspan="4" class="column-border">Netto</td>
+          </tr>
+          <tr>
+            <td colspan="1">emerytalne</td>
+            <td colspan="1">rentowe</td>
+            <td colspan="1">chorobowe</td>
+            <td colspan="1">zdrowotne</td>
+          </tr>
+            {% for month_data in months_dict.values() %}
+                {% if month_data == months_dict['suma'] %}
+                    <tr class="table-content sum-column-border">
+                        <td colspan="4" width="120"><b>{{ month_data.month }}</b></td>
+                        <td colspan="4" width="120" class="bold-column-border"><b>{{ month_data.brutto }}</b></td>
+                        <td width="120">{{ month_data.ub_emerytalne }}</td>
+                        <td width="120">{{ month_data.ub_rentowe }}</td>
+                        <td width="120">{{ month_data.ub_chorobowe }}</td>
+                        <td width="120">{{ month_data.ub_zdrowotne }}</td>
+                        <td colspan="4" width="120">{{ month_data.podst_opodatkowania }}</td>
+                        <td colspan="4" width="120">{{ month_data.zaliczka_na_PIT }}</td>
+                        <td colspan="4" width="120" class="bold-column-border"><b>{{ month_data.netto }}</b></td>
+                    </tr>
+                {% else %}
+                    <tr class="table-content">
+                        <td colspan="4" width="120">{{ month_data.month }}</td>
+                        <td colspan="4" width="120" class="column-border">{{ month_data.brutto }}</td>
+                        <td width="120">{{ month_data.ub_emerytalne }}</td>
+                        <td width="120">{{ month_data.ub_rentowe }}</td>
+                        <td width="120">{{ month_data.ub_chorobowe }}</td>
+                        <td width="120">{{ month_data.ub_zdrowotne }}</td>
+                        <td colspan="4" width="120">{{ month_data.podst_opodatkowania }}</td>
+                        <td colspan="4" width="120">{{ month_data.zaliczka_na_PIT }}</td>
+                        <td colspan="4" width="120" class="column-border">{{ month_data.netto }}</td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>

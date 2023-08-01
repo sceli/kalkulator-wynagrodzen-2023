@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalkulator wynagrodzeń 2023</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+  <div class="container">
+    <h1>Kalkulator wynagrodzeń 2023</h1>
+      {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+      {% endif %}
+    <form action="{{ url_for('salaries') }}" method="post"> <!-- Update the form action -->
+      <div class="salary">
+        <input type="text" name="salaryInput" placeholder="Podaj kwotę brutto">
+        <button type="submit">Oblicz</button>
+      </div>
+      <div class="checkboxes">
+        <label>
+          <input type="checkbox" name="workAtResidence" checked> Praca w miejscu zamieszkania
+        </label>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
