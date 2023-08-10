@@ -15,3 +15,6 @@ A website where, in accordance with Polish regulations, you can calculate the sa
 
 Link to the page
 http://stanis.pythonanywhere.com/
+
+
+![alt text](https://github.com/sceli/kalkulator-wynagrodzen/blob/main/salary_calc_screen.png?raw=true)
