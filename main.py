@@ -109,7 +109,3 @@ def salaries():
                 return render_template('index.html', error_message="Wprowadź prawidłową kwotę brutto.")
         else:
             return render_template('index.html', error_message="Wprowadź kwotę brutto.")
-
-
-if __name__ == '__main__':
-    app.run(debug=True)
